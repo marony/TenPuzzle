@@ -1,6 +1,7 @@
 import scala.annotation.tailrec
 
 object Main {
+  val N = 10
   var count = 0
   var min = Integer.MAX_VALUE
   var max = Integer.MIN_VALUE
@@ -73,13 +74,14 @@ object Main {
   def power(n : Int, m : Int) : Option[Int] = {
     Some(Math.pow(n.toDouble, m.toDouble).toInt)
   }
+  // 多重根
 //  def route(n : Int, m : Int) : Option[Int] = {
 //    Some(Math.route(n.toDouble, m.toDouble).toInt)
 //  }
 
   // サポートする演算・関数を定義
   // 1引数の関数群
-  def oneArgFuncs = List((id _, "")/*, (sqrt _, "sqrt"), (square _, "square")*/)
+  def oneArgFuncs = List((id _, ""), (sqrt _, "sqrt"), (square _, "square"))
   // 2引数の関数群
   def twoArgsFuncs = List((add _, "+"), (sub _, "-"), (mul _, "*"),
     (div _, "/")/*, (mod _, "mod"), (power _, "pow"), (route, "route")*/)
@@ -94,7 +96,7 @@ object Main {
                 fx <- f(x); gx <- g(r); hx <- h(gx, fx))
              yield __check(xss, hx, "(" + (if (sg == "") ms + " " else sg + "(" + ms + ") ") + sh + " " + (if (sf == "") x  else sf + "(" + x + ")") + ")")).flatten
         }
-        case _ => if (r == 10) List((Some(r), ms)) else Nil
+        case _ => if (r == N) List((Some(r), ms)) else Nil
       }
     }
     def _check(xs : List[Int]) : Unit = {
@@ -110,7 +112,7 @@ object Main {
             min = Math.min(min, xs.sum)
             println("xs = " + xs + ", ms = " + ms + ", n = " + n)
           }
-          case c                        => println(c)//println("xs = " + xs)
+          case _                        => ()
         }
       }
     }
